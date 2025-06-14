@@ -41,7 +41,7 @@ async function sendWhatsAppMessage(to, message) {
 }
 
 // ✅ Webhook Endpoint
-app.all('/reloadly-webhook', async (req, res) => {
+app.post('/reloadly-webhook', async (req, res) => {
   // Only allow POST
   if (req.method !== 'POST') {
     console.log('❌ Rejected non-POST request');
