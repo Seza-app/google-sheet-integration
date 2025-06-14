@@ -81,11 +81,6 @@ app.post('/reloadly-webhook', async (req, res) => {
     return res.status(500).send('Internal Server Error');
   }
 });
-app.all('*', (req, res, next) => {
-  console.log(`\n[${new Date().toISOString()}] ${req.method} - ${req.originalUrl}`);
-  console.log('Headers:', req.headers);
-  console.log('Body:', req.body);
-  next();
-});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
