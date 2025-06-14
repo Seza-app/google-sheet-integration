@@ -4,7 +4,22 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
 const twilio = require('twilio');
 
 const app = express();
+app.use((req, res, next) => {
+  try {
+    console.log(`\n[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+    console.log('Headers:', req.headers);
 
+    // Only log body for POST, PUT, PATCH
+    if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
+      console.log('Body:', req.body);
+    }
+
+    next();
+  } catch (error) {
+    console.error('Logging middleware error:', error.message);
+    next(); // Don't block the request even if logging fails
+  }
+});
 // ✅ Properly parse JSON body
 app.use(express.json({
   type: ['application/json', 'application/*+json']
